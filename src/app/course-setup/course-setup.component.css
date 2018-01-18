@@ -1,0 +1,12 @@
+mat-card{
+  max-width: 800px;
+  max-height:500px;
+}
+
+mat-card img{
+
+}
+
+mat-card mat-select{
+  margin: 10px 10px;
+}
