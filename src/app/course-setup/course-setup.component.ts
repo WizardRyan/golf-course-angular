@@ -11,12 +11,13 @@ export class CourseSetupComponent implements OnInit {
   golfObject;
   cardTitle = "Select a Course";
   cardImage = "http://www.hdwallpaperup.com/wp-content/uploads/2015/07/Golf-Ball-Wallpaper.jpg";
-  cardContent = "Select a course to get started, then an amount of players. When you're satisfied with your selection, head on over to the Score Card page";
+  cardContent = "Select a course to get started, then an amount of players and a tee type. When you're satisfied with your selection, head on over to the Score Card page";
   cardCourses;
   selectedCourse;
   location = {latitude: 40.4426135, longitude: -111.8631115, radius: 20};
   numOfPlayers = [1, 2, 3, 4];
   numPlayers;
+  teeType;
 
   constructor(private golfData: GolfDataService) {
   }
@@ -30,9 +31,14 @@ export class CourseSetupComponent implements OnInit {
   }
 
   setCourse(course) {
-    this.selectedCourse = course;
+    this.golfData.setCurrentCourse(course);
+    this.golfData.getCourse().subscribe(p => {
+      this.selectedCourse = p;
+      console.log(this.selectedCourse);
+    });
     course.thumbnail ? this.cardImage = course.thumbnail : this.cardImage = "http://www.hdwallpaperup.com/wp-content/uploads/2015/07/Golf-Ball-Wallpaper.jpg";
     this.cardTitle = course.name;
+
   }
 
   setCourseLocation() {
@@ -42,6 +48,10 @@ export class CourseSetupComponent implements OnInit {
 
   setNumOfPlayers(num) {
     this.numPlayers = num;
+  }
+
+  setTeeType(tee) {
+    this.teeType = tee;
   }
 
 }

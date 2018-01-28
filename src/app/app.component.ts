@@ -8,7 +8,7 @@ import {GolfDataService} from './services/golf-data.service';
 })
 export class AppComponent implements OnInit {
   title = 'app';
-  data: JSON;
+  data;
 
   constructor(private golfService: GolfDataService) {
   }

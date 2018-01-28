@@ -8,6 +8,9 @@ export class GolfDataService {
 
   private golfUrl = 'https://golf-courses-api.herokuapp.com/courses';
   private localObj: object = {latitude: 40.4426135, longitude: -111.8631115, radius: 20};
+  private currentCourse;
+  private numOfPlayers: number;
+  private teeType: string;
 
   constructor(private httpClient: HttpClient) {
   }
@@ -18,6 +21,28 @@ export class GolfDataService {
 
   setLocation(latitude: number, longitude: number, radius: number): void {
     this.localObj = {latitude, longitude, radius};
+  }
+
+  setCurrentCourse(course): void {
+    this.currentCourse = course;
+  }
+
+  getCourse(): Observable<any> {
+    return this.httpClient.get(this.golfUrl + "/" + this.currentCourse.id);
+  }
+
+  getCurrentCourse() {
+    return this.currentCourse;
+  }
+
+  getSetnumOfPlayers(num): number {
+    this.numOfPlayers = num;
+    return this.numOfPlayers;
+  }
+
+  getSetTeeType(tee): string {
+    this.teeType = tee;
+    return this.teeType;
   }
 
   handleError(error) {
