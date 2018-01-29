@@ -34,6 +34,7 @@ export class CourseSetupComponent implements OnInit {
     this.golfData.setCurrentCourse(course);
     this.golfData.getCourse().subscribe(p => {
       this.selectedCourse = p;
+      this.golfData.setCurrentCourse(p);
       console.log(this.selectedCourse);
     });
     course.thumbnail ? this.cardImage = course.thumbnail : this.cardImage = "http://www.hdwallpaperup.com/wp-content/uploads/2015/07/Golf-Ball-Wallpaper.jpg";
@@ -48,10 +49,12 @@ export class CourseSetupComponent implements OnInit {
 
   setNumOfPlayers(num) {
     this.numPlayers = num;
+    this.golfData.getSetnumOfPlayers(num);
   }
 
   setTeeType(tee) {
     this.teeType = tee;
+    this.golfData.getSetTeeType(tee);
   }
 
 }

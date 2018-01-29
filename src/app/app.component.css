@@ -17,3 +17,7 @@ mat-toolbar button{
 mat-toolbar{
   margin-bottom: 20px;
 }
+
+app-score-card{
+
+}

@@ -1,6 +1,43 @@
-<div class="mat-elevation-z8">
+<div class="table-container mat-elevation-z8">
   <mat-table #table [dataSource]="dataSource">
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
 
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="hole_num">
+      <mat-header-cell *matHeaderCellDef>Hole num</mat-header-cell>
+      <mat-cell *matCellDef="let hole">{{hole.hole_num}}</mat-cell>
+    </ng-container>
 
+    <ng-container matColumnDef="par">
+      <mat-header-cell *matHeaderCellDef>Par</mat-header-cell>
+      <mat-cell *matCellDef="let hole">{{hole.par}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="yardage">
+      <mat-header-cell *matHeaderCellDef>Yardage</mat-header-cell>
+      <mat-cell *matCellDef="let hole">{{hole.yardage}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="handicap">
+      <mat-header-cell *matHeaderCellDef>Handicap</mat-header-cell>
+      <mat-cell *matCellDef="let hole">{{hole.handicap}}</mat-cell>
+    </ng-container>
+
+    <ng-container *ngFor="let num of numPlayersArray" [matColumnDef]="'player' + num">
+      <mat-header-cell *matHeaderCellDef>
+        <mat-form-field>
+          <input matInput [placeholder]="'Player ' + num">
+        </mat-form-field>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let foo">
+        <mat-form-field class="score-input">
+          <input matInput type="number">
+        </mat-form-field>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
 </div>

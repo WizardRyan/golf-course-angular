@@ -35,13 +35,17 @@ export class GolfDataService {
     return this.currentCourse;
   }
 
-  getSetnumOfPlayers(num): number {
-    this.numOfPlayers = num;
+  getSetnumOfPlayers(num?): number {
+    if (num) {
+      this.numOfPlayers = num;
+    }
     return this.numOfPlayers;
   }
 
-  getSetTeeType(tee): string {
-    this.teeType = tee;
+  getSetTeeType(tee?): string {
+    if (tee) {
+      this.teeType = tee;
+    }
     return this.teeType;
   }
 
