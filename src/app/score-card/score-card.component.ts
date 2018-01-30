@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {GolfDataService} from '../services/golf-data.service';
 import {MatTableDataSource} from "@angular/material";
-import {GolfTableDataObject} from "../model/interfaces";
+import {GolfTableDataObject, PlayerScore} from "../model/interfaces";
 
 @Component({
   selector: 'app-score-card',
@@ -9,26 +9,39 @@ import {GolfTableDataObject} from "../model/interfaces";
   styleUrls: ['./score-card.component.css']
 })
 
-export class ScoreCardComponent implements OnInit, AfterViewInit {
+export class ScoreCardComponent implements OnInit{
   displayedColumns = ['hole_num', 'par', 'yardage', 'handicap'];
   holes;
   holeObjects: GolfTableDataObject[] = [];
   dataSource = new MatTableDataSource();
   numOfPlayers: number;
   numPlayersArray: number[] = [];
-  playerScores: number[] = [];
-  playerNames: string[];
-
-
+  playerNames: string[] = ['Player 1', 'Player 2', 'Player 3', 'Player 4'];
+  playerScores: PlayerScore[] = [];
+  playerScoreInputs: number[][] = [[], [], [], []];
+  par = 0;
+  load = false;
   constructor(private golfService: GolfDataService) {
 
   }
 
   ngOnInit() {
-    this.playerScores.fill(0, 0, 18);
+
     const currentCourse = this.golfService.getCurrentCourse();
+    currentCourse ? this.load = true : this.load = false;
     this.holes = currentCourse.course.holes;
     this.numOfPlayers = this.golfService.getSetnumOfPlayers();
+
+    // fill player scores with 0
+    for (let i = 0; i < this.numOfPlayers; i++) {
+      for (let j = 0; j < this.holes.length; j++) {
+        this.playerScoreInputs[i].push(0);
+      }
+    }
+    // fill players with scores of 0
+    for (let i = 0; i < this.numOfPlayers; i++) {
+      this.playerScores.push({in_score: 0, out_score: 0, total: 0});
+    }
 
     for (let i = 0; i < currentCourse.course.holes.length; i++) {
       let holeObject: GolfTableDataObject;
@@ -43,6 +56,7 @@ export class ScoreCardComponent implements OnInit, AfterViewInit {
             yardage: teeBox.yards
           };
           this.holeObjects.push(holeObject);
+          this.par += teeBox.par;
         }
       }
     }
@@ -51,14 +65,26 @@ export class ScoreCardComponent implements OnInit, AfterViewInit {
       this.displayedColumns.push(`player${k + 1}`);
       this.numPlayersArray.push(k + 1);
     }
-    console.log(this.displayedColumns);
-    console.log(this.numPlayersArray);
+
     this.dataSource.data = this.holeObjects;
   }
 
-  ngAfterViewInit() {
+  onScoreInput(event: any, num, holeNum) {
+    let n = num - 1;
+    this.playerScoreInputs[n][holeNum] = Number(event.target.value);
 
-
+    let half = this.holes.length / 2;
+    let inScore = 0;
+    let outScore = 0;
+    for (let i = 0; i < half; i++) {
+      inScore += this.playerScoreInputs[n][i];
+    }
+    for (let i = half; i < this.holes.length; i++) {
+      outScore += this.playerScoreInputs[n][i];
+    }
+    this.playerScores[n].total = inScore + outScore;
+    this.playerScores[n].out_score = outScore;
+    this.playerScores[n].in_score = inScore;
   }
 }
 

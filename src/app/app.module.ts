@@ -2,7 +2,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
-  MatButtonModule, MatCardModule, MatInputModule, MatListModule, MatSelectModule, MatTableModule,
+  MatButtonModule, MatCardModule, MatGridListModule, MatInputModule, MatListModule, MatProgressBarModule,
+  MatProgressSpinnerModule,
+  MatSelectModule, MatSpinner,
+  MatTableModule,
   MatToolbarModule
 } from '@angular/material';
 import { AppComponent } from './app.component';
@@ -32,6 +35,9 @@ import { ScoreCardComponent } from './score-card/score-card.component';
     FormsModule,
     MatListModule,
     MatTableModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
+    MatGridListModule,
     RouterModule.forRoot([
       { path: 'course-setup', component: CourseSetupComponent },
       { path: 'score-card', component: ScoreCardComponent },

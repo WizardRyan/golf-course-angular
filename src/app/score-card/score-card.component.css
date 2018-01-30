@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   height: 80%;
-  width: 80%;
+  width: 100%;
   overflow: auto;
 }
 
@@ -17,7 +17,16 @@
   justify-content: flex-start;
   width: 100%;
   height: 100%;
-  margin-top: 20px;
+
+}
+
+.cards-container{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  width: 80%;
+  height: 100%;
 }
 
 .score-input{
@@ -31,7 +40,11 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .card-container{
-  width: 80%;
-  height: 80%;
+  width: 100%;
+  min-width: 280px;
   margin-top: 20px;
+}
+
+.player-output-card{
+  min-height: 240px;
 }

@@ -1,66 +1,78 @@
-<div class="table-container mat-elevation-z8">
-  <mat-table #table [dataSource]="dataSource">
-    <!--- Note that these columns can be defined in any order.
-          The actual rendered columns are set as a property on the row definition" -->
+<div class="cards-container" *ngIf="load">
+  <div class="table-container mat-elevation-z8">
+    <mat-table #table [dataSource]="dataSource">
+      <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
 
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="hole_num">
-      <mat-header-cell *matHeaderCellDef>Hole num</mat-header-cell>
-      <mat-cell *matCellDef="let hole">{{hole.hole_num}}</mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="par">
-      <mat-header-cell *matHeaderCellDef>Par</mat-header-cell>
-      <mat-cell *matCellDef="let hole">{{hole.par}}</mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="yardage">
-      <mat-header-cell *matHeaderCellDef>Yardage</mat-header-cell>
-      <mat-cell *matCellDef="let hole">{{hole.yardage}}</mat-cell>
-    </ng-container>
-
-    <ng-container matColumnDef="handicap">
-      <mat-header-cell *matHeaderCellDef>Handicap</mat-header-cell>
-      <mat-cell *matCellDef="let hole">{{hole.handicap}}</mat-cell>
-    </ng-container>
-
-    <ng-container *ngFor="let num of numPlayersArray" [matColumnDef]="'player' + num">
-      <mat-header-cell *matHeaderCellDef>
-        <mat-form-field>
-          <input matInput [placeholder]="'Player ' + num">
-        </mat-form-field>
-      </mat-header-cell>
-      <mat-cell *matCellDef="let foo">
-        <mat-form-field class="score-input">
-          <input matInput type="number">
-        </mat-form-field>
-      </mat-cell>
-    </ng-container>
-
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-  </mat-table>
-</div>
-
-<div class="card-container" *ngIf="numOfPlayers">
-  <mat-card class="mat-elevation-z8">
-    <mat-list>
-      <ng-container *ngIf="playerNames">
-        <mat-list-item *ngFor="let num of numPlayersArray">{{playerNames[num - 1]}}</mat-list-item>
-s      </ng-container>
-
-      <ng-container *ngIf="!playerNames">
-
-        <mat-list-item  *ngFor="let num of numPlayersArray">
-          <span>
-            Player {{num}}
-          </span>
-          <span>
-            test
-          </span>
-        </mat-list-item>
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="hole_num">
+        <mat-header-cell *matHeaderCellDef>Hole num</mat-header-cell>
+        <mat-cell *matCellDef="let hole">{{hole.hole_num}}</mat-cell>
       </ng-container>
 
-    </mat-list>
-  </mat-card>
+      <ng-container matColumnDef="par">
+        <mat-header-cell *matHeaderCellDef>Par</mat-header-cell>
+        <mat-cell *matCellDef="let hole">{{hole.par}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="yardage">
+        <mat-header-cell *matHeaderCellDef>Yardage</mat-header-cell>
+        <mat-cell *matCellDef="let hole">{{hole.yardage}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="handicap">
+        <mat-header-cell *matHeaderCellDef>Handicap</mat-header-cell>
+        <mat-cell *matCellDef="let hole">{{hole.handicap}}</mat-cell>
+      </ng-container>
+
+      <ng-container *ngFor="let num of numPlayersArray" [matColumnDef]="'player' + num">
+        <mat-header-cell *matHeaderCellDef>
+          <mat-form-field>
+            <input [(ngModel)]="playerNames[num - 1]" matInput [placeholder]="'Player ' + num">
+          </mat-form-field>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let hole">
+          <mat-form-field class="score-input">
+            <input matInput type="number" (input)="onScoreInput($event, num, (hole.hole_num - 1))">
+          </mat-form-field>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </div>
+
+    <div class="card-container" *ngIf="numOfPlayers">
+      <mat-card class="mat-elevation-z8 player-output-card">
+        <mat-card-title>
+          Par: {{par}}
+        </mat-card-title>
+        <mat-grid-list [cols]="numOfPlayers" rowHeight="240">
+          <mat-grid-tile *ngFor="let num of numPlayersArray">
+            <mat-list>
+              <mat-list-item >
+                  <span>
+                    <strong>{{playerNames[num - 1]}}</strong>
+                  </span>
+              </mat-list-item>
+              <mat-list-item>
+                <span>in score: {{playerScores[num -1].in_score}}</span>
+              </mat-list-item >
+              <mat-list-item>
+                <span>out score: {{playerScores[num - 1].out_score}}</span>
+              </mat-list-item>
+              <mat-list-item>
+                <strong>Total: {{playerScores[num -1].total}}</strong>
+              </mat-list-item>
+            </mat-list>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </mat-card>
+    </div>
+  </div>
+
+<div *ngIf="!load">
+  <h1 class="mat-display-1">You need to select a course!</h1>
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 </div>
