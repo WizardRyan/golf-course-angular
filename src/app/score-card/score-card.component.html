@@ -41,3 +41,26 @@
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
 </div>
+
+<div class="card-container" *ngIf="numOfPlayers">
+  <mat-card class="mat-elevation-z8">
+    <mat-list>
+      <ng-container *ngIf="playerNames">
+        <mat-list-item *ngFor="let num of numPlayersArray">{{playerNames[num - 1]}}</mat-list-item>
+s      </ng-container>
+
+      <ng-container *ngIf="!playerNames">
+
+        <mat-list-item  *ngFor="let num of numPlayersArray">
+          <span>
+            Player {{num}}
+          </span>
+          <span>
+            test
+          </span>
+        </mat-list-item>
+      </ng-container>
+
+    </mat-list>
+  </mat-card>
+</div>

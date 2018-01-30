@@ -16,18 +16,21 @@ export class ScoreCardComponent implements OnInit, AfterViewInit {
   dataSource = new MatTableDataSource();
   numOfPlayers: number;
   numPlayersArray: number[] = [];
+  playerScores: number[] = [];
+  playerNames: string[];
+
 
   constructor(private golfService: GolfDataService) {
 
   }
 
   ngOnInit() {
+    this.playerScores.fill(0, 0, 18);
     const currentCourse = this.golfService.getCurrentCourse();
     this.holes = currentCourse.course.holes;
     this.numOfPlayers = this.golfService.getSetnumOfPlayers();
 
     for (let i = 0; i < currentCourse.course.holes.length; i++) {
-      // this.displayedColumns.push(String(currentCourse.course.holes[i].hole_num));
       let holeObject: GolfTableDataObject;
 
       for (let k = 0; k < currentCourse.course.holes[i].tee_boxes.length; k++) {
