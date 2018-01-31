@@ -2,7 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
-  MatButtonModule, MatCardModule, MatGridListModule, MatInputModule, MatListModule, MatProgressBarModule,
+  MatButtonModule, MatCardModule, MatDialogModule, MatGridListModule, MatInputModule, MatListModule,
+  MatProgressBarModule,
   MatProgressSpinnerModule,
   MatSelectModule, MatSpinner,
   MatTableModule,
@@ -15,13 +16,15 @@ import { CourseSetupComponent } from './course-setup/course-setup.component';
 import {RouterModule} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 import { ScoreCardComponent } from './score-card/score-card.component';
+import { ScoreCardDialogComponent } from './score-card/score-card-dialog/score-card-dialog.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     CourseSetupComponent,
-    ScoreCardComponent
+    ScoreCardComponent,
+    ScoreCardDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -38,6 +41,7 @@ import { ScoreCardComponent } from './score-card/score-card.component';
     MatProgressBarModule,
     MatProgressSpinnerModule,
     MatGridListModule,
+    MatDialogModule,
     RouterModule.forRoot([
       { path: 'course-setup', component: CourseSetupComponent },
       { path: 'score-card', component: ScoreCardComponent },
@@ -46,6 +50,7 @@ import { ScoreCardComponent } from './score-card/score-card.component';
 
   ],
   providers: [GolfDataService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ScoreCardDialogComponent]
 })
 export class AppModule { }

@@ -1,7 +1,8 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {GolfDataService} from '../services/golf-data.service';
-import {MatTableDataSource} from "@angular/material";
+import {MatDialog, MatTableDataSource} from "@angular/material";
 import {GolfTableDataObject, PlayerScore} from "../model/interfaces";
+import {ScoreCardDialogComponent} from "./score-card-dialog/score-card-dialog.component";
 
 @Component({
   selector: 'app-score-card',
@@ -9,7 +10,7 @@ import {GolfTableDataObject, PlayerScore} from "../model/interfaces";
   styleUrls: ['./score-card.component.css']
 })
 
-export class ScoreCardComponent implements OnInit{
+export class ScoreCardComponent implements OnInit {
   displayedColumns = ['hole_num', 'par', 'yardage', 'handicap'];
   holes;
   holeObjects: GolfTableDataObject[] = [];
@@ -21,7 +22,8 @@ export class ScoreCardComponent implements OnInit{
   playerScoreInputs: number[][] = [[], [], [], []];
   par = 0;
   load = false;
-  constructor(private golfService: GolfDataService) {
+
+  constructor(private golfService: GolfDataService, public dialog: MatDialog) {
 
   }
 
@@ -85,6 +87,18 @@ export class ScoreCardComponent implements OnInit{
     this.playerScores[n].total = inScore + outScore;
     this.playerScores[n].out_score = outScore;
     this.playerScores[n].in_score = inScore;
+
+    if (holeNum + 1 === this.holes.length) {
+      this.openDialog(n);
+    }
+  }
+
+  openDialog(num): void {
+    let dialogRef = this.dialog.open(ScoreCardDialogComponent, {
+      width: '250px',
+      data: { name: this.playerNames[num], score: this.playerScores[num], par: this.par }
+    });
+
   }
 }
 

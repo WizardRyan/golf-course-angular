@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>Hey {{data.name}}</h1>
+<div mat-dialog-content>
+  <p class="mat-body-1">You scored {{data.score.total}} and par was {{data.par}}</p>
+  <p class="mat-body-1" *ngIf="data.score.total <= data.par">Nice Job!</p>
+  <p class="mat-body-1" *ngIf="data.score.total > data.par && data.score.total < data.par + 5">Good game.</p>
+  <p class="mat-body-1" *ngIf="data.score.total >= data.par + 5">Better luck next time.</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button cdkFocusInitial (click)="onNoClick()">Ok</button>
+</div>
