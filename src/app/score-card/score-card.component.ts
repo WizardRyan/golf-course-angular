@@ -77,10 +77,10 @@ export class ScoreCardComponent implements OnInit{
     let inScore = 0;
     let outScore = 0;
     for (let i = 0; i < half; i++) {
-      inScore += this.playerScoreInputs[n][i];
+      outScore += this.playerScoreInputs[n][i];
     }
     for (let i = half; i < this.holes.length; i++) {
-      outScore += this.playerScoreInputs[n][i];
+      inScore += this.playerScoreInputs[n][i];
     }
     this.playerScores[n].total = inScore + outScore;
     this.playerScores[n].out_score = outScore;
