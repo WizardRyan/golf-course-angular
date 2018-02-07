@@ -11,7 +11,8 @@ export class GolfDataService {
   private currentCourse;
   private numOfPlayers: number;
   private teeType: string;
-  private names: string[];
+
+
 
   constructor(private httpClient: HttpClient) {
   }
@@ -22,14 +23,6 @@ export class GolfDataService {
 
   setLocation(latitude: number, longitude: number, radius: number): void {
     this.localObj = {latitude, longitude, radius};
-  }
-
-  setNames(names: string[]) {
-    this.names = names;
-  }
-
-  getNames(): string[] {
-    return this.names;
   }
 
   setCurrentCourse(course): void {

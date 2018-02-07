@@ -17,6 +17,7 @@ import {RouterModule} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 import { ScoreCardComponent } from './score-card/score-card.component';
 import { ScoreCardDialogComponent } from './score-card/score-card-dialog/score-card-dialog.component';
+import { ScoreCardNamePipe } from './score-card/score-card-name.pipe';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { ScoreCardDialogComponent } from './score-card/score-card-dialog/score-c
     AppComponent,
     CourseSetupComponent,
     ScoreCardComponent,
-    ScoreCardDialogComponent
+    ScoreCardDialogComponent,
+    ScoreCardNamePipe
   ],
   imports: [
     BrowserModule,
