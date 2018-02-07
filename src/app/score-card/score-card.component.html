@@ -28,7 +28,7 @@
       <ng-container *ngFor="let num of numPlayersArray" [matColumnDef]="'player' + num">
         <mat-header-cell *matHeaderCellDef>
           <mat-form-field>
-            <input [(ngModel)]="playerNames[num - 1]" matInput [placeholder]="'Player ' + num">
+            <input [(ngModel)]="playerNames[num - 1]" (ngModelChange)="nameChanged()" matInput [placeholder]="'Player ' + num">
           </mat-form-field>
         </mat-header-cell>
         <mat-cell *matCellDef="let hole">

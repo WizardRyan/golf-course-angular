@@ -14,10 +14,10 @@ mat-toolbar button{
 
 }
 
-mat-toolbar{
-  margin-bottom: 20px;
+.main-wrapper{
+  margin-top: 20px;
 }
 
-app-score-card{
-
+mat-toolbar{
+  background-color: white;
 }

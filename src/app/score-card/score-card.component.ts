@@ -1,8 +1,8 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {GolfDataService} from '../services/golf-data.service';
-import {MatDialog, MatTableDataSource} from "@angular/material";
-import {GolfTableDataObject, PlayerScore} from "../model/interfaces";
-import {ScoreCardDialogComponent} from "./score-card-dialog/score-card-dialog.component";
+import {MatDialog, MatTableDataSource} from '@angular/material';
+import {GolfTableDataObject, PlayerScore} from '../model/interfaces';
+import {ScoreCardDialogComponent} from './score-card-dialog/score-card-dialog.component';
 
 @Component({
   selector: 'app-score-card',
@@ -96,9 +96,13 @@ export class ScoreCardComponent implements OnInit {
   openDialog(num): void {
     let dialogRef = this.dialog.open(ScoreCardDialogComponent, {
       width: '250px',
-      data: { name: this.playerNames[num], score: this.playerScores[num], par: this.par }
+      data: {name: this.playerNames[num], score: this.playerScores[num], par: this.par}
     });
 
+  }
+
+  nameChanged() {
+    this.golfService.setNames(this.playerNames);
   }
 }
 
