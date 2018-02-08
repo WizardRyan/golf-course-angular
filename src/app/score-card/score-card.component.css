@@ -6,6 +6,7 @@
   overflow: auto;
 }
 
+
 .mat-table {
   overflow: auto;
 }
@@ -28,6 +29,18 @@
   width: 80%;
   height: 100%;
 }
+
+@media(max-width: 655px){
+  .cards-container{
+    width: 100%;
+  }
+
+  .table-container{
+    min-height: 600px;
+    margin-top: 420px;
+  }
+}
+
 
 .score-input{
   max-width: 20px;

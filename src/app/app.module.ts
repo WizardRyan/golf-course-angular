@@ -18,6 +18,7 @@ import {FormsModule} from '@angular/forms';
 import { ScoreCardComponent } from './score-card/score-card.component';
 import { ScoreCardDialogComponent } from './score-card/score-card-dialog/score-card-dialog.component';
 import { ScoreCardNamePipe } from './score-card/score-card-name.pipe';
+import {FlexLayoutModule} from "@angular/flex-layout";
 
 
 @NgModule({
@@ -44,6 +45,7 @@ import { ScoreCardNamePipe } from './score-card/score-card-name.pipe';
     MatProgressSpinnerModule,
     MatGridListModule,
     MatDialogModule,
+    FlexLayoutModule,
     RouterModule.forRoot([
       { path: 'course-setup', component: CourseSetupComponent },
       { path: 'score-card', component: ScoreCardComponent },

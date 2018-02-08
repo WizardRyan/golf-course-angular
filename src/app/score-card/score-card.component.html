@@ -16,12 +16,12 @@
       </ng-container>
 
       <ng-container matColumnDef="yardage">
-        <mat-header-cell *matHeaderCellDef>Yardage</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef>Ydg.</mat-header-cell>
         <mat-cell *matCellDef="let hole">{{hole.yardage}}</mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="handicap">
-        <mat-header-cell *matHeaderCellDef>Handicap</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef>Hcp.</mat-header-cell>
         <mat-cell *matCellDef="let hole">{{hole.handicap}}</mat-cell>
       </ng-container>
 
@@ -48,9 +48,10 @@
         <mat-card-title>
           Par: {{par}}
         </mat-card-title>
-        <mat-grid-list [cols]="numOfPlayers" rowHeight="240">
-          <mat-grid-tile *ngFor="let num of numPlayersArray">
-            <mat-list>
+        <!--<mat-grid-list [cols]="numOfPlayers" rowHeight="240">-->
+          <!--<mat-grid-tile *ngFor="let num of numPlayersArray">-->
+        <div fxLayout="row" fxLayoutAlign="center" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="10px" >
+            <mat-list *ngFor="let num of numPlayersArray">
               <mat-list-item >
                   <span>
                     <strong>{{playerNames[num - 1] | scoreCardName:playerNames:(num - 1)}}</strong>
@@ -66,8 +67,10 @@
                 <strong>Total: {{playerScores[num -1].total}}</strong>
               </mat-list-item>
             </mat-list>
-          </mat-grid-tile>
-        </mat-grid-list>
+
+        </div>
+          <!--</mat-grid-tile>-->
+        <!--</mat-grid-list>-->
       </mat-card>
     </div>
   </div>

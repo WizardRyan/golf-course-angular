@@ -7,7 +7,6 @@ import {GolfDataService} from "../services/golf-data.service";
 export class ScoreCardNamePipe implements PipeTransform {
 
   transform(name: string, names: string[], num: number): string {
-    debugger;
     for (let i = 0; i < names.length; i++) {
       if (names[i] === name && num !== i && name !== "") {
         return names[i] + "'s clone";

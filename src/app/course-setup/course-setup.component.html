@@ -5,42 +5,45 @@
     <mat-card-content>{{cardContent}}</mat-card-content>
     <mat-card-actions>
 
-      <mat-form-field>
-        <input matInput placeholder="latitude" [(ngModel)]="location.latitude" (input)="setCourseLocation()">
-      </mat-form-field>
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="10px" fxLayoutAlign="center">
+        <mat-form-field>
+          <input matInput placeholder="latitude" [(ngModel)]="location.latitude" (input)="setCourseLocation()">
+        </mat-form-field>
 
-      <mat-form-field>
-        <input matInput placeholder="longitude" [(ngModel)]="location.longitude" (input)="setCourseLocation()">
-      </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="longitude" [(ngModel)]="location.longitude" (input)="setCourseLocation()">
+        </mat-form-field>
 
-      <mat-form-field>
-        <input matInput placeholder="radius" [(ngModel)]="location.radius" (input)="setCourseLocation()">
-      </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="radius" [(ngModel)]="location.radius" (input)="setCourseLocation()">
+        </mat-form-field>
+      </div>
 
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="10px" fxLayoutAlign="center">
+        <mat-form-field>
+          <mat-select placeholder="Select Course">
+            <mat-option *ngFor="let course of cardCourses" (click)="setCourse(course)" [value]="course.name">
+              {{course.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
 
-      <mat-form-field>
-        <mat-select placeholder="Select Course">
-          <mat-option *ngFor="let course of cardCourses" (click)="setCourse(course)" [value]="course.name">
-            {{course.name}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+        <mat-form-field>
+          <mat-select  placeholder="Select number of players">
+            <mat-option *ngFor="let num of numOfPlayers" (click)="setNumOfPlayers(num)" [value]="num">
+              {{num}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
 
-      <mat-form-field>
-        <mat-select  placeholder="Select number of players">
-          <mat-option *ngFor="let num of numOfPlayers" (click)="setNumOfPlayers(num)" [value]="num">
-            {{num}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field *ngIf="selectedCourse">
-        <mat-select  placeholder="Select Tee Type">
-          <mat-option *ngFor="let tee of selectedCourse.course.tee_types" (click)="setTeeType(tee.tee_type)" [value]="tee.tee_type">
-            {{tee.tee_type}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+        <mat-form-field *ngIf="selectedCourse">
+          <mat-select  placeholder="Select Tee Type">
+            <mat-option *ngFor="let tee of selectedCourse.course.tee_types" (click)="setTeeType(tee.tee_type)" [value]="tee.tee_type">
+              {{tee.tee_type}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
 
     </mat-card-actions>
   </mat-card>
