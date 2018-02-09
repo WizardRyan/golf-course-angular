@@ -3,6 +3,7 @@ import {GolfDataService} from '../services/golf-data.service';
 import {MatDialog, MatTableDataSource} from '@angular/material';
 import {GolfTableDataObject, PlayerScore} from '../model/interfaces';
 import {ScoreCardDialogComponent} from './score-card-dialog/score-card-dialog.component';
+import {AuthService} from "../core/auth.service";
 
 @Component({
   selector: 'app-score-card',
@@ -23,11 +24,12 @@ export class ScoreCardComponent implements OnInit {
   par = 0;
   load = false;
 
-  constructor(private golfService: GolfDataService, public dialog: MatDialog) {
+  constructor(private golfService: GolfDataService, public dialog: MatDialog, public auth: AuthService) {
 
   }
 
   ngOnInit() {
+
 
     const currentCourse = this.golfService.getCurrentCourse();
     currentCourse ? this.load = true : this.load = false;
@@ -94,11 +96,10 @@ export class ScoreCardComponent implements OnInit {
   }
 
   openDialog(num): void {
-    let dialogRef = this.dialog.open(ScoreCardDialogComponent, {
+    this.dialog.open(ScoreCardDialogComponent, {
       width: '250px',
       data: {name: this.playerNames[num], score: this.playerScores[num], par: this.par}
     });
-
   }
 
 }

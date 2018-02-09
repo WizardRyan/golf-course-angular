@@ -50,7 +50,7 @@ export class AuthService {
     const userRef: AngularFirestoreDocument<User> = this.fireStore.doc(`users/${user.uid}`);
     const data: User = {
       uid: user.uid,
-      email: user.email,
+      email: user.email
     };
 
     userRef.set(data);

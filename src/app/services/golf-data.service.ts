@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {HttpClient} from '@angular/common/http';
 import {catchError} from 'rxjs/operators';
+import {AuthService} from "../core/auth.service";
 
 @Injectable()
 export class GolfDataService {
@@ -13,8 +14,10 @@ export class GolfDataService {
   private teeType: string;
 
 
+  constructor(private httpClient: HttpClient, private auth: AuthService) {
+    if (auth.user !== null) {
 
-  constructor(private httpClient: HttpClient) {
+    }
   }
 
   getGolfData(): Observable<any> {
