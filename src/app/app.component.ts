@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {GolfDataService} from './services/golf-data.service';
+import {AuthService} from "./core/auth.service";
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,8 @@ export class AppComponent implements OnInit {
   title = 'app';
   data;
 
-  constructor(private golfService: GolfDataService) {
+
+  constructor(private golfService: GolfDataService, private auth: AuthService) {
   }
 
   ngOnInit() {

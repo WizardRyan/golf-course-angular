@@ -18,6 +18,10 @@ mat-toolbar button{
   margin-top: 20px;
 }
 
+.login-button{
+  justify-self: flex-end;
+}
+
 mat-toolbar{
   background-color: white;
 }

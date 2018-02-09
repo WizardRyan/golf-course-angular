@@ -10,3 +10,11 @@ export interface PlayerScore {
   out_score: number;
   total: number;
 }
+
+export interface Player {
+  playerScores: number[][];
+  playerNames: string[];
+  selectedCourse: any;
+  selectedTee: any;
+  numberOfPlayers: number;
+}

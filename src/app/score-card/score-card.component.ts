@@ -40,7 +40,7 @@ export class ScoreCardComponent implements OnInit {
         this.playerScoreInputs[i].push(0);
       }
     }
-    // fill players with scores of 0
+    // fill players with scores
     for (let i = 0; i < this.numOfPlayers; i++) {
       this.playerScores.push({in_score: 0, out_score: 0, total: 0});
     }

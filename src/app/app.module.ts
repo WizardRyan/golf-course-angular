@@ -19,6 +19,9 @@ import { ScoreCardComponent } from './score-card/score-card.component';
 import { ScoreCardDialogComponent } from './score-card/score-card-dialog/score-card-dialog.component';
 import { ScoreCardNamePipe } from './score-card/score-card-name.pipe';
 import {FlexLayoutModule} from "@angular/flex-layout";
+import {AngularFireModule} from "angularfire2";
+import {environment} from "../environments/environment";
+import {CoreModule} from "./core/core.module";
 
 
 @NgModule({
@@ -50,8 +53,9 @@ import {FlexLayoutModule} from "@angular/flex-layout";
       { path: 'course-setup', component: CourseSetupComponent },
       { path: 'score-card', component: ScoreCardComponent },
       { path: '**', component: CourseSetupComponent }
-    ])
-
+    ]),
+    AngularFireModule.initializeApp(environment.firebase),
+    CoreModule
   ],
   providers: [GolfDataService],
   bootstrap: [AppComponent],
