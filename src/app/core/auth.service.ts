@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, OnDestroy} from '@angular/core';
 
 
 import * as firebase from 'firebase/app';
@@ -22,6 +22,7 @@ interface User {
 export class AuthService {
 
   user: Observable<User>;
+  credUser: any;
 
   constructor(private fireAuth: AngularFireAuth, private fireStore: AngularFirestore, private router: Router) {
     this.user = this.fireAuth.authState
@@ -42,17 +43,59 @@ export class AuthService {
   private oAuthLogin(provider) {
     return this.fireAuth.auth.signInWithPopup(provider)
       .then(credential => {
+        this.credUser = credential.user;
         this.updateUserData(credential.user);
       });
   }
 
   private updateUserData(user) {
-    const userRef: AngularFirestoreDocument<User> = this.fireStore.doc(`users/${user.uid}`);
-    const data: User = {
-      uid: user.uid,
-      email: user.email
-    };
+    let rUser;
 
-    userRef.set(data);
+    this.user.subscribe(a => {
+      const userRef: AngularFirestoreDocument<User> = this.fireStore.doc(`users/${user.uid}`);
+      let data: User;
+      if (a) {
+        data = {
+          uid: user.uid,
+          email: user.email,
+          photoURL: user.photoURL,
+          displayName: user.displayName,
+          golfData: a.golfData ? a.golfData : null
+        };
+        userRef.set(data);
+        window.location.reload(true);
+      }
+      else {
+        data = {
+          uid: user.uid,
+          email: user.email,
+          photoURL: user.photoURL,
+          displayName: user.displayName,
+          golfData: null
+        };
+        userRef.set(data);
+
+      }
+    });
   }
+
+  setUserScores(gData: Player) {
+    this.user.subscribe(dat => {
+      const userRef: AngularFirestoreDocument<User> = this.fireStore.doc(`users/${dat.uid}`);
+      const data: User = {
+        uid: dat.uid,
+        email: dat.email,
+        photoURL: dat.photoURL,
+        displayName: dat.displayName,
+        golfData: gData
+      };
+      userRef.set(data);
+    });
+
+  }
+
+  signOut() {
+    this.fireAuth.auth.signOut().then(() => console.log('user was signed out'));
+  }
+
 }

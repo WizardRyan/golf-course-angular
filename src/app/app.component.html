@@ -2,9 +2,13 @@
 <mat-toolbar>
   <button mat-button routerLink="/course-setup">Course Setup</button>
   <button mat-button routerLink="/score-card">Score Card</button>
-  <button class="login-button" mat-button routerLink="/score-card" (click)="auth.googleLogin()">Login</button>
-  <div *ngIf="auth.user | async as user">Hello {{user.email}}!</div>
+
+  <button *ngIf="!(auth.user | async)" class="login-button" mat-button (click)="auth.googleLogin()">Login</button>
+  <button *ngIf="auth.user | async as user" class="login-button" mat-button (click)="auth.signOut()">Logout</button>
+  <img mat-card-avatar *ngIf="auth.user | async as user" [src]="user.photoURL">
+
 </mat-toolbar>
+
 <mat-divider class="divider"></mat-divider>
 
 <div class="main-wrapper">

@@ -12,9 +12,10 @@ export interface PlayerScore {
 }
 
 export interface Player {
-  playerScores: number[][];
+  playerScores: PlayerScore[];
+  playerScoreInputs: number[];
   playerNames: string[];
-  selectedCourse: any;
+  courseID: any;
   selectedTee: any;
   numberOfPlayers: number;
 }

@@ -28,12 +28,12 @@
       <ng-container *ngFor="let num of numPlayersArray" [matColumnDef]="'player' + num">
         <mat-header-cell *matHeaderCellDef>
           <mat-form-field>
-            <input [(ngModel)]="playerNames[num - 1]" matInput [placeholder]="'Player ' + num">
+            <input [(ngModel)]="playerNames[num - 1]" matInput [placeholder]="'Player ' + num" (input)="pushPlayerNames()">
           </mat-form-field>
         </mat-header-cell>
         <mat-cell *matCellDef="let hole">
           <mat-form-field class="score-input">
-            <input matInput type="number" (input)="onScoreInput($event, num, (hole.hole_num - 1))">
+            <input matInput [value]="playerScoreInputs[num - 1][hole.hole_num - 1]" type="number" (input)="onScoreInput($event, num, (hole.hole_num - 1))">
           </mat-form-field>
         </mat-cell>
       </ng-container>
@@ -50,7 +50,7 @@
         </mat-card-title>
         <!--<mat-grid-list [cols]="numOfPlayers" rowHeight="240">-->
           <!--<mat-grid-tile *ngFor="let num of numPlayersArray">-->
-        <div fxLayout="row" fxLayoutAlign="center" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="10px" >
+        <div fxLayout="row" fxLayoutAlign="center" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="20px" >
             <mat-list *ngFor="let num of numPlayersArray">
               <mat-list-item >
                   <span>

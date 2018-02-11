@@ -21,7 +21,7 @@
 
       <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="10px" fxLayoutAlign="center">
         <mat-form-field>
-          <mat-select placeholder="Select Course">
+          <mat-select placeholder="Select Course" [value]="selectedCourse ? selectedCourse.course.name.toString() : ''">
             <mat-option *ngFor="let course of cardCourses" (click)="setCourse(course)" [value]="course.name">
               {{course.name}}
             </mat-option>
@@ -29,7 +29,7 @@
         </mat-form-field>
 
         <mat-form-field>
-          <mat-select  placeholder="Select number of players">
+          <mat-select  placeholder="Select number of players" [value]="numPlayers ? numPlayers : ''">
             <mat-option *ngFor="let num of numOfPlayers" (click)="setNumOfPlayers(num)" [value]="num">
               {{num}}
             </mat-option>
@@ -37,7 +37,7 @@
         </mat-form-field>
 
         <mat-form-field *ngIf="selectedCourse">
-          <mat-select  placeholder="Select Tee Type">
+          <mat-select  placeholder="Select Tee Type" [value]="teeType ? teeType : ''">
             <mat-option *ngFor="let tee of selectedCourse.course.tee_types" (click)="setTeeType(tee.tee_type)" [value]="tee.tee_type">
               {{tee.tee_type}}
             </mat-option>

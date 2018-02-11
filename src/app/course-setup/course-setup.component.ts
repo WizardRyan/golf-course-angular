@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {GolfDataService} from '../services/golf-data.service';
+import {AuthService} from "../core/auth.service";
+import {init} from "protractor/built/launcher";
 
 @Component({
   selector: 'app-course-setup',
@@ -19,23 +21,24 @@ export class CourseSetupComponent implements OnInit {
   numPlayers;
   teeType;
 
-  constructor(private golfData: GolfDataService) {
+  constructor(private golfData: GolfDataService, private auth: AuthService) {
   }
 
   ngOnInit() {
-    this.golfObject = this.golfData.getGolfData().subscribe(data => {
-      this.golfObject = data;
-      this.cardCourses = this.golfObject.courses;
+    this.golfData.getGolfData().subscribe(data => {
+      this.cardCourses = data.courses;
     });
-
+    let sub = this.auth.user.subscribe((data) => {
+        this.initUserData();
+        sub.unsubscribe();
+    });
   }
 
   setCourse(course) {
-    this.golfData.setCurrentCourse(course);
+    this.golfData.setCurrentCourse(course.id);
     this.golfData.getCourse().subscribe(p => {
       this.selectedCourse = p;
-      this.golfData.setCurrentCourse(p);
-      console.log(this.selectedCourse);
+      console.log(p);
     });
     course.thumbnail ? this.cardImage = course.thumbnail : this.cardImage = "http://www.hdwallpaperup.com/wp-content/uploads/2015/07/Golf-Ball-Wallpaper.jpg";
     this.cardTitle = course.name;
@@ -49,7 +52,7 @@ export class CourseSetupComponent implements OnInit {
 
   setNumOfPlayers(num) {
     this.numPlayers = num;
-    this.golfData.getSetnumOfPlayers(num);
+    this.golfData.getSetnumOfPlayers(Number(num));
   }
 
   setTeeType(tee) {
@@ -57,5 +60,18 @@ export class CourseSetupComponent implements OnInit {
     this.golfData.getSetTeeType(tee);
   }
 
+  initUserData() {
+    if (this.golfData.getSetnumOfPlayers()) {
+      this.numPlayers = this.golfData.getSetnumOfPlayers();
+    }
+    if (this.golfData.getSetTeeType()) {
+      this.teeType = this.golfData.getSetTeeType();
+    }
+    if (this.golfData.getCourse()) {
+      this.golfData.getCourse().subscribe(p => {
+        this.selectedCourse = p;
+      });
+    }
+  }
 }
 
